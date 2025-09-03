@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App - Your Personal Task Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="logo">ToDoApp</div>
+            <nav>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Sign Up</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Organize Your Life, One Task at a Time</h1>
+                <p>The simple, intuitive, and beautiful to-do list that helps you get things done.</p>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large">Get Started for Free</a>
+            </div>
+            <div class="hero-image">
+                <!-- You can add an illustration or image here -->
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Why You'll Love ToDoApp</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Easy to Use</h3>
+                    <p>A clean and simple interface that's a joy to use.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Stay Organized</h3>
+                    <p>Group your tasks, set priorities, and never miss a deadline.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Accessible Anywhere</h3>
+                    <p>Syncs across all your devices so you can stay productive on the go.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 ToDoApp. All rights reserved.</p>
+    </footer>
+</body>
+</html>
