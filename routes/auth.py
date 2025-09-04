@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from models import User
 from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,7 +23,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             access_token = create_access_token(identity=name)
-            return render_template("add_task.html")
+            return redirect(url_for("home.html"))
     else:
         return render_template("register.html")
 
@@ -46,4 +46,4 @@ def login():
             else:
                 return jsonify({"msg": "user does't exist"}), 401
     else:
-        return render_template("add_task.html")
+        return redirect(url_for("home.html"))
