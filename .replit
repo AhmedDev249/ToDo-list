@@ -1,2 +1,5 @@
 language = "python3"
 run = "python app.py"
+
+[agent]
+expertMode = true
