@@ -23,7 +23,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             access_token = create_access_token(identity=name)
-            return 
+            return render_template("add_task.html")
     else:
         return render_template("register.html")
 
@@ -46,4 +46,4 @@ def login():
             else:
                 return jsonify({"msg": "user does't exist"}), 401
     else:
-        return render_template("register.html")
+        return render_template("add_task.html")
