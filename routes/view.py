@@ -12,18 +12,6 @@ def home():
     tasks = Tasks.query.order_by(Tasks.id).all()
     return render_template("index.html", tasks=tasks)
 
-@view.route("/add", methods=["GET", "POST"])
-def add_task_page():
-    if request.method == "POST":
-        title = request.form.get("title")
-        if not title:
-            return "Error: Title is required.", 400
-        new_task = Tasks(title=title)
-        db.session.add(new_task)
-        db.session.commit()
-        return redirect(url_for("view.home"))
-    return render_template("add_task.html")
-
 
 # POST
 @view.route("/add_task", methods=["POST"])
