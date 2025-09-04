@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Task</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        form { display: flex; flex-direction: column; width: 300px; }
+        input, button { padding: 10px; margin-bottom: 10px; font-size: 1em; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Add a New Task</h1>
+    <form action="/add" method="POST">
+        <label for="title">Task Title:</label>
+        <input type="text" id="title" name="title" required>
+        <button type="submit">Add Task</button>
+    </form>
+</body>
+</html>

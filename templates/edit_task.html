@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        form { display: flex; flex-direction: column; width: 300px; }
+        input, button { padding: 10px; margin-bottom: 10px; font-size: 1em; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Edit Task</h1>
+    <form action="{{ url_for('view.edit_task', task_id=task.id) }}" method="POST">
+        <label for="title">Task Title:</label>
+        <input type="text" id="title" name="title" value="{{ task.title }}" required>
+        <button type="submit">Update Task</button>
+    </form>
+</body>
+</html>

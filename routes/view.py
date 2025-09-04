@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
 from models import Tasks
 from extensions import db
 from flask_jwt_extended import jwt_required
@@ -8,7 +8,21 @@ view = Blueprint("view", __name__)
 
 @view.route("/")
 def home():
-    return render_template("index.html")
+    # Fetch all tasks from the database to display them
+    tasks = Tasks.query.order_by(Tasks.id).all()
+    return render_template("index.html", tasks=tasks)
+
+@view.route("/add", methods=["GET", "POST"])
+def add_task_page():
+    if request.method == "POST":
+        title = request.form.get("title")
+        if not title:
+            return "Error: Title is required.", 400
+        new_task = Tasks(title=title)
+        db.session.add(new_task)
+        db.session.commit()
+        return redirect(url_for("view.home"))
+    return render_template("add_task.html")
 
 
 # POST
@@ -16,6 +30,8 @@ def home():
 @jwt_required()
 def add_task():
     data = request.get_json()
+    if not data or not data.get("title"):
+        return jsonify({"msg": "title is required"}), 400
     new_task = Tasks(title=data["title"])
     db.session.add(new_task)
     db.session.commit()
@@ -30,9 +46,9 @@ def update(task_id):
         task.title = data.get("title", task.title)
         task.done = data.get("done", task.done)
         db.session.commit()
-        return jsonify({"msg": "task updated successfuly"}), 201
+        return redirect(url_for("view.home"))
     else:
-        return jsonify({"msg": "task not found"}), 404
+        return render_template("edit_task.html", task=task)
 
 # DELETE
 @view.route("/delete_task/<int:task_id>", methods=["DELETE"])
@@ -41,6 +57,6 @@ def delete_task(task_id):
     if data:
         db.session.delete(data)
         db.session.commit()
-        return jsonify({"msg": "task deleted successfuly"}), 201
+        return redirect(url_for("view.home"))
     else:
         return jsonify({"msg": "task not found"}), 404
